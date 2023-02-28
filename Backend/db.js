@@ -1,13 +1,19 @@
-const mongoose = require('mongoose');
+const Sequelize = require("sequelize");
 
-mongoose.set("strictQuery", false);
+const sequelize = new Sequelize(
+ 'mitesh_sathvara4',
+ 'mitesh_sathvara',
+ 'deep70',
+  {
+    host: "radixusers2.com", 
+    dialect: 'mysql'
+  }
+);
 
-const DBUri = "mongodb+srv://yashmongodb:Yash%40260801@cluster0.w8ehrtf.mongodb.net/BlogApp?retryWrites=true&w=majority"
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+ }).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
+});
 
-mongoose.connect(DBUri,{ useNewUrlParser: true, useUnifiedTopology: true},(err)=>{
-    if(err){
-        console.error(err);
-    }else console.log("Connected to mongodb database...");
-})
-
-module.exports = mongoose
+module.exports = sequelize
